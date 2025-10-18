@@ -51,4 +51,55 @@ class Solution {
     }
 }
 
+3.question
+class Solution {
+    public int[] runningSum(int[] nums) {
+        int n = nums.length;
+        int res[] = new int[n];
+        res[0]=nums[0];
+        for(int i=1; i<n; i++){
+            res[i] = nums[i]+res[i-1];
+        }
+        return res;
+    }
+}
+
+4.question
+class Solution {
+    public int maxFrequencyElements(int[] nums) {
+        int n = nums.length;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i=0; i<n; i++){
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
+        }
+        int max = 0;
+        int cnt = 0;
+        for(int val : map.values()){
+            max = Math.max(max,val);
+        }
+        for(int val : map.values()){
+            if(val == max){
+                cnt += val;
+            }
+        }
+        return cnt;
+    }
+}
+5.question
+class Solution {
+    public void rotate(int[] nums, int k) {
+        int n=nums.length;
+        int result[] = new int[n];
+        k=k%n;
+        for(int i=0; i<k; i++){
+            result[i]=nums[n-k+i];
+        }
+        for (int i = k; i < n; i++) {
+            result[i] = nums[i - k];
+        }
+        for(int i=0; i<n; i++){
+            nums[i]=result[i];
+        }
+    }
+}
 
