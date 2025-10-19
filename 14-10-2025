@@ -15,3 +15,99 @@ class Solution {
         return str.toString();
     }
 }
+
+
+Question
+import java.io.*;
+import java.util.*;
+
+class program {
+
+  public static void main(String[] args) {
+    String str = "HI AMY AND JAY";
+    int n = str.length();
+    int spaces = 0;
+
+    for (int i = 0; i < n; i++) {
+      if (str.charAt(i) == ' ')
+        spaces = spaces + 1;
+    }
+
+    System.out.print("Number of words are ");
+    System.out.print(spaces + 1);
+  }
+}
+
+Question Gfg(Factorial)
+class Solution {
+    // Function to calculate factorial of a number.
+    int factorial(int n) {
+        // code here
+        int res = 1;
+        while(n>0){
+            res *= n;
+            n--;
+        }
+        return res;
+    }
+}
+Question
+class Solution {
+    public int reverseExponentiation(int n) {
+        // code here
+        int rev = 0;
+        int temp = n;
+        while(temp > 0){
+            int digit = temp%10;
+            rev = rev*10 + digit;
+            temp = temp/10;
+        }
+        int result = 1;
+        for (int j = 0; j < rev; j++) {
+            result *= n;
+        }
+        return result;
+    }
+}
+
+Question
+class Solution {
+    public static void printTillN(int N) {
+        // code here
+        // if(N == 0){
+        //     return;
+        // }
+        // printTillN(N-1);
+        // System.out.print(N+" ");
+        for(int i=1; i<=N; i++){
+            System.out.print(i+" ");
+        }
+    }
+}
+question gfg(Count Digit)
+class Solution {
+    static int evenlyDivides(int n) {
+        // code here
+        int count = 0;
+        int temp = n;
+        while(temp > 0){
+            int digit = temp%10;
+            if(digit != 0 && n % digit == 0) count++;
+            temp = temp/10;
+        }
+        return count;
+    }
+}
+// User function Template for Java
+
+class Solution {
+    int arraySum(int arr[]) {
+        // code here
+        int n = arr.length;
+        int sum = 0;
+        for(int i=0; i<n; i++){
+            sum += arr[i];
+        }
+        return sum;
+    }
+}
