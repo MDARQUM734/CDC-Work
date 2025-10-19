@@ -223,3 +223,81 @@ class Solution {
 }
 
 }
+Question 912 LC
+class Solution {
+    public int[] sortArray(int[] nums) {
+        if (nums.length <= 1) {
+            return nums;
+        }
+        int mid = nums.length / 2;
+        int[] left = new int[mid];
+        int[] right = new int[nums.length - mid];
+        System.arraycopy(nums, 0, left, 0, mid);
+        System.arraycopy(nums, mid, right, 0, nums.length - mid);
+        left = sortArray(left);   
+        right = sortArray(right); 
+        return merge(left, right);
+    }
+    private static int[] merge(int[] left, int[] right) {
+        int[] result = new int[left.length + right.length];
+        int i = 0, j = 0, k = 0;
+        while (i < left.length && j < right.length) {
+            if (left[i] <= right[j]) {
+                result[k++] = left[i++];
+            } else {
+                result[k++] = right[j++];
+            }
+        }
+        while (i < left.length) {
+            result[k++] = left[i++];
+        }
+        while (j < right.length) {
+            result[k++] = right[j++];
+        }
+
+        return result;
+    }
+}
+
+Qusetion 48LC
+class Solution {
+    public void rotate(int[][] matrix) {
+        int n = matrix.length;
+        for(int i=0; i<n; i++){
+            for(int j=i+1; j<n; j++){
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[j][i];
+                matrix[j][i] = temp;
+            }
+        }
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n/2; j++){
+                int temp = matrix[i][j];
+                matrix[i][j] = matrix[i][n-j-1];
+                matrix[i][n-j-1] = temp;
+            }
+        }
+    }
+}
+
+Question 2643
+class Solution {
+    public int[] rowAndMaximumOnes(int[][] mat) {
+        int n = mat.length;
+        int m = mat[0].length;
+        int result[] = new int[2];
+        int max = 0;
+        for(int i=0; i<n; i++){
+            int count = 0;
+            for(int j=0; j<m; j++){
+                if(mat[i][j] == 1) count++;
+            }
+            if(count > max){
+                max = count;
+                result[0] = i;
+                result[1] = max; 
+            }
+        }
+        return result;
+    }
+}
