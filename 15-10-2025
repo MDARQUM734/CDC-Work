@@ -88,4 +88,113 @@ class Solution {
         node.next = node.next.next;
     }
 }
+Quesation (GFG)
+class Solution {
+    public int getCount(Node head) {
+        // code here
+        int size = 0;
+        Node temp = head;
+        while(temp != null){
+            temp = temp.next;
+            size++;
+        }
+        return size;
+    }
+}
+Question 206
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        ListNode curr = head;
+        ListNode next;
+        while(curr != null){
+            next = curr.next;
+            curr.next = prev;
+            prev = curr; 
+            curr = next;
+        }
+        head = prev;
+        return  head;
+    }
+}
+Question 876
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode slow = head;
+        ListNode fast = head;
+        while(fast != null && fast.next != null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+        return slow;
+    }
+}
+Question 21
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+       ListNode dummy = new ListNode(-1);
+        ListNode curr = dummy;
+        while (list1 != null && list2 != null) {
+            if (list1.val <= list2.val) {
+                curr.next = list1;
+                list1 = list1.next;
+            } else {
+                curr.next = list2;
+                list2 = list2.next;
+            }
+            curr = curr.next;
+        }
+        if (list1 != null) curr.next = list1;
+        if (list2 != null) curr.next = list2;
+        return dummy.next;
+    }
+}
+Question 2(LC)
+class Solution {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        int carry = 0;
+        while(l1 != null || l2 != null || carry != 0){
+            int val1 = (l1 != null) ? l1.val : 0; 
+            int val2 = (l2 != null) ? l2.val : 0;
+            int sum = val1 + val2 + carry;
+            carry = sum/10;
+            int digit = sum % 10;
+            current.next = new ListNode(digit);
+            current = current.next;
+            if(l1 != null) l1 = l1.next;
+            if(l2 != null) l2 = l2.next;
+        }
+        return dummy.next;
+    }
+}
+61(LC)
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) {
+       if (head == null || head.next == null || k == 0) return head;
 
+    //  Find the length and tail
+    ListNode curr = head;
+    int length = 1;
+    while (curr.next != null) {
+        curr = curr.next;
+        length++;
+    }
+
+    // isko circular banadenge
+    curr.next = head;
+
+    // Find new tail: (length - k % length - 1)th node
+    k = k % length;
+    int stepsToNewTail = length - k;
+    ListNode newTail = head;
+    for (int i = 0; i < stepsToNewTail - 1; i++) {
+        newTail = newTail.next;
+    }
+
+    // ek new node banakar newtail ka next usko assign karke newtail ka next null kardenge Break the circle
+    ListNode newHead = newTail.next;
+    newTail.next = null;
+
+    return newHead;
