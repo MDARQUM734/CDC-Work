@@ -1,0 +1,77 @@
+Question 155(LC)
+class MinStack {
+    Stack<Integer> st = new Stack<>();
+    Stack<Integer> min = new Stack<>();
+
+    public MinStack() {
+        
+    }
+    
+    public void push(int val) {
+        if(st.size() == 0){
+            st.push(val);
+            min.push(val);
+        }else{
+            st.push(val);
+            if(min.peek() < val) min.push(min.peek());
+            else min.push(val);
+        }
+    }
+    
+    public void pop() {
+        st.pop();
+        min.pop();
+    }
+    
+    public int top() {
+        return st.peek();
+    }
+    
+    public int getMin() {
+        return min.peek();
+    }
+}
+
+question 735(LC)
+class Solution {
+    public int[] asteroidCollision(int[] asteroids) {
+         Stack<Integer> st = new Stack<>();
+        for (int a : asteroids) {
+            boolean destroyed = false;
+            while (!st.isEmpty() && a < 0 && st.peek() > 0) {
+                if (st.peek() < -a) {
+                    st.pop(); // yaha ham alredy jo hai usko hata rahe
+                    continue; // yaha ham new stone ko destroy kar rahe hai like new stone jo hai wo kam weight ka hai
+                } else if (st.peek() == -a) {
+                    st.pop(); 
+                }
+                destroyed = true; 
+                break;
+            }
+
+            if (!destroyed) st.push(a); 
+        }
+
+        int[] res = new int[st.size()];
+        for (int i = st.size() - 1; i >= 0; i--) {
+            res[i] = st.pop();
+        }
+        return res;
+    }
+}
+Question 901
+class StockSpanner {
+    Stack<int[]> stack;
+    public StockSpanner() {
+        stack = new Stack<>();
+    }
+    
+    public int next(int price) {
+        int span = 1;
+        while(!stack.isEmpty() && stack.peek()[0] <= price){
+            span += stack.pop()[1];
+        }
+        stack.push(new int[]{price,span}); 
+        return span;
+    }
+}
