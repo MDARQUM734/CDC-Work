@@ -239,3 +239,65 @@ class Solution {
         return false;
     }
 }
+Question Aggresive Cows
+class Solution {
+    public boolean isPossible(int[] stalls, int k, int mid){
+        int count = 1;
+        int lastPos = stalls[0];
+        for(int i=1; i<stalls.length; i++){
+            if(stalls[i]-lastPos >= mid){
+                count++;
+                lastPos = stalls[i];
+            }
+            if(count == k) return true;
+        }
+        return false;
+    }
+    public int aggressiveCows(int[] stalls, int k) {
+        // code here
+        Arrays.sort(stalls);
+        int n = stalls.length;
+        int low = 1, high = stalls[n-1]-stalls[0];
+        int ans = 0;
+        while(low <= high){
+            int mid = low + (high -low)/2;
+            if(isPossible(stalls,k,mid)){
+                ans = mid;
+                low = mid+1;
+            }else{
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+}
+Question 875(LC)
+class Solution {
+    public boolean isEat(int[] piles,int h, int hours){
+        long actualHour = 0;
+        for(int num : piles){
+            actualHour += num/hours;
+            if(num % hours != 0){
+                actualHour++;
+            }
+        }
+        if(actualHour <= h) return true;
+        else return false;
+    }
+    public int minEatingSpeed(int[] piles, int h) {
+        int n = piles.length;
+        Arrays.sort(piles);
+        int low = 1, high = piles[n-1];
+        int ans = 0;
+        while(low <= high){
+            int mid = low + (high-low)/2;
+            if(isEat(piles,h,mid)){
+                ans = mid;
+                high = mid-1;
+            }else{
+                low = mid+1;
+            }
+        }
+        return ans;
+    }
+}
