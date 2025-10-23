@@ -1,0 +1,169 @@
+Question 543
+class Solution {
+    public int height(TreeNode root){
+        if(root == null || (root.left == null && root.right == null)) return 0;
+        return 1 + Math.max(height(root.left),height(root.right));  
+    }
+    public int diameterOfBinaryTree(TreeNode root) {
+        if(root == null || (root.left == null && root.right == null)) return 0;
+        int leftAns = diameterOfBinaryTree(root.left);
+        int rightAns = diameterOfBinaryTree(root.right);
+        int ans = height(root.left) + height(root.right);
+        if(root.left != null) ans++;
+        if(root.right != null) ans++;
+        int max = Math.max(ans,Math.max(leftAns,rightAns));
+        return max;
+    }
+}
+Question 112
+class Solution {
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+        if(root == null) return false;
+        if(root != null &&(root.left ==  null && root.right == null)){
+            if(root.val == targetSum) return true;
+        }
+        return hasPathSum(root.left,targetSum-root.val) || hasPathSum(root.right,targetSum-root.val);
+    }
+}
+Question 199
+class Solution {
+    private List<Integer> result = new ArrayList<>();
+    public List<Integer> rightSideView(TreeNode root) {
+        dfs(root, 0);
+        return result;
+    }
+    public void dfs(TreeNode root, int level){
+        if(root == null) return;
+        if(result.size() == level){
+            result.add(root.val);
+        }
+        dfs(root.right,level+1);
+        dfs(root.left,level+1);
+    }
+}
+Question 98
+class Solution {
+    public boolean isValidBST(TreeNode root) {
+        return validate(root, Long.MIN_VALUE, Long.MAX_VALUE);
+    }
+     private boolean validate(TreeNode node, long min, long max) {
+        if (node == null) return true;
+        if (node.val <= min || node.val >= max) return false;
+
+        return validate(node.left, min, node.val) && 
+               validate(node.right, node.val, max);
+        }
+}
+Question Most Frequent Charater
+class Solution {
+    public char getMaxOccuringChar(String s) {
+        // code here
+            int[] freq = new int[26];
+        int n = s.length();
+        for (int i = 0; i < n; i++) {
+            char ch = s.charAt(i);
+            freq[ch - 'a']++;
+        }
+        int max = 0;
+        char res = 'a';
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] > max) {
+                max = freq[i];
+                res = (char) (i + 'a');
+            }
+        }
+
+        return res;
+    }
+}
+Question Missing 
+class Solution {
+    public int missingNumber(int[] nums) {
+        int n = nums.length;
+        Arrays.sort(nums);
+        int missing = -1;
+        for(int i=0; i<n; i++){
+            if(nums[i] != i){
+                missing = i;
+                break;
+            }
+        }
+        if(missing == -1) return n;
+        return missing;
+    }
+}
+Question 349
+class Solution {
+    public int[] intersection(int[] nums1, int[] nums2) {
+        int n = nums1.length;
+        int m = nums2.length;
+        int j =0;
+        HashSet<Integer> set = new HashSet<>();
+        ArrayList<Integer> list = new ArrayList<>();
+        for(int i =0; i<n; i++){
+            set.add(nums1[i]);
+        }
+        for(int i =0; i<m; i++){
+            if(set.contains(nums2[i])){
+                list.add(nums2[i]);
+                set.remove(nums2[i]);
+                j++;
+            }
+        }
+        int[] res = new int[list.size()];
+        for (int i = 0; i < list.size(); i++) {
+            res[i] = list.get(i);
+        }
+        return res;
+    }
+}
+Question 73
+class Solution {
+    public void setZeroes(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        int [][] temp = new int[m][n];
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                temp[i][j]=matrix[i][j];
+            }
+        }
+        for(int i=0; i<m; i++){
+            for(int j=0; j<n; j++){
+                if(matrix[i][j]==0){
+                    for(int k=0; k<m; k++){
+                        temp[k][j] =0;
+                    }
+                    for(int k=0; k<n; k++){
+                        temp[i][k]=0;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = temp[i][j];
+            }
+        }
+    }
+}
+Question 242
+class Solution {
+    public boolean isAnagram(String s, String t) {
+        int n = s.length();
+        int m = t.length();
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(int i=0; i<n; i++){
+            map.put(s.charAt(i),map.getOrDefault(s.charAt(i),0)+1);
+        }
+        for(int i=0; i<m; i++){
+            char ch = t.charAt(i);
+            if(map.containsKey(ch)){
+                map.put(ch,map.get(ch)-1);
+                if(map.get(ch) == 0) map.remove(ch);
+            } else return false;
+        }
+        if(map.size() == 0) return true;
+        else return false;
+    }
+}
