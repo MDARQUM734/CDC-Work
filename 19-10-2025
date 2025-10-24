@@ -1,0 +1,70 @@
+Quetion 128
+class Solution {
+    public int longestConsecutive(int[] nums) {
+       if (nums.length == 0) return 0;
+       HashSet<Integer> set = new HashSet<>();
+       for(int num : nums) set.add(num);
+       int max = 0;
+       for(int num : set){
+        if(!set.contains(num-1)){
+            int count = 1;
+            int temp = num;
+            while(set.contains(temp + 1)){
+                count++;
+                temp = temp+1;
+            }
+            max = Math.max(count,max);
+        }
+       }
+        return max;
+    }
+}
+Question 3
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        int n = s.length();
+        if (n == 0) return 0;
+
+        HashMap<Character, Integer> map = new HashMap<>();
+        int left = 0;
+        int max = 0;
+
+        for (int right = 0; right < n; right++) {
+            char c = s.charAt(right);
+            map.put(c, map.getOrDefault(c, 0) + 1);
+            while (map.get(c) > 1) {
+                char leftChar = s.charAt(left);
+                map.put(leftChar, map.get(leftChar) - 1);
+                left++;
+            }
+            max = Math.max(max, right - left + 1);
+        }
+
+        return max;
+    }
+}
+largest subarray with 0 sum
+class Solution {
+    int maxLength(int arr[]) {
+        // code here
+        int n = arr.length;
+         HashMap<Integer, Integer> map = new HashMap<>();
+        int sum = 0;
+        int maxLen = 0;
+
+        for (int i = 0; i < n; i++) {
+            sum += arr[i];
+            if (sum == 0) {
+                maxLen = i + 1;
+            }
+            else if (map.containsKey(sum)) {
+                maxLen = Math.max(maxLen, i - map.get(sum));
+            }
+            else {
+                map.put(sum, i);
+            }
+        }
+
+        return maxLen;
+    }
+}
