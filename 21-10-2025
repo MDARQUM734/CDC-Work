@@ -1,0 +1,63 @@
+Question 231
+class Solution {
+    public boolean isPowerOfTwo(int n) {
+        if(n == 1) return true;
+        if(n<=0 || n%2 != 0) return false;
+        return isPowerOfTwo(n/2);
+    }
+}
+
+Question 338
+class Solution {
+    public int[] countBits(int n) {
+       int dp[]=new int[n+1];
+       for(int i=1; i<n+1; i++){
+        // yaha dp[i>>i] ye isleye kar rahe kyoki hame just phle wale dp[i] ka pata hai jais agar i = 111 to hame dp[11] ka pata hai aur phir ham add kar rahe kyoki last bit agar one hai toh add karenge warna 0 aa jayega 
+        dp[i] = dp[i>>1]+(i & 1);
+       }
+       return dp;
+    }
+}
+Question 136
+class Solution {
+    public int singleNumber(int[] nums) {
+        int n = nums.length;
+        int result = 0;
+        for(int i=0; i<n; i++){
+            result ^= nums[i];
+        }
+        return result;
+    }
+    Question 78
+    class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(0, nums, new ArrayList<>(), result);
+        return result;
+    }
+    public void backtrack(int start, int nums[],List<Integer> current, List<List<Integer>> result){
+        result.add(new ArrayList<>(current));
+        for(int i=start ; i<nums.length; i++){
+            current.add(nums[i]);
+            backtrack(i+1,nums,current,result);
+            current.remove(current.size()-1);
+        }
+    }
+}
+Question 268
+class Solution {
+    public int missingNumber(int[] nums) {
+     int xor = 0;
+        int n = nums.length;
+
+        // XOR all numbers from 0 to n
+        for (int i = 0; i <= n; i++) {
+            xor ^= i;
+        }
+        for (int num : nums) {
+            xor ^= num;
+        }
+        return xor;
+    }
+}
+}
