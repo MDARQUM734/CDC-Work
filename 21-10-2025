@@ -27,6 +27,14 @@ class CheckBit {
         else return false;
     }
 }
+Question Toggle bits range
+class Solution {
+    static int toggleBits(int n, int l, int r) {
+        // code here
+        int mask = ((1<<(r-l+1))-1) << (l-1);
+        return mask^n;
+    }
+};
 
 Question 136
 class Solution {
@@ -129,5 +137,58 @@ class Solution {
             }
         }
         return count;
+    }
+}
+Question 1015
+class Solution {
+    public int smallestRepunitDivByK(int k) {
+        if(k%2 == 0 || k%5 == 0){
+            return -1;
+        }
+        int r = 0;
+        for(int length = 1; length<=k; length++){
+            r = (r*10 +1)%k;
+            if(r == 0){
+                return length;
+            }
+        }
+        return -1;
+    }
+}
+question 96
+class Solution {
+    public int numTrees(int n) {
+        int dp[] = new int[n+1];
+        dp[0]=1;
+        dp[1]=1;
+        for(int i=2; i<n+1; i++){
+            for(int j=0; j<i; j++){
+                int left = dp[j];
+                int right = dp[i-j-1];
+                dp[i] += left*right;
+            }
+        }
+        return dp[n];
+    }
+}
+Question 46
+class Solution {
+    public void backtrack(int nums[],List<Integer>path,List<List<Integer>> result){
+        if(path.size() == nums.length){
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        for(int num : nums){
+            if(path.contains(num)) continue;
+            path.add(num);
+            backtrack(nums,path,result);
+            path.remove(path.size()-1);
+        }
+    }
+    public List<List<Integer>> permute(int[] nums) {
+        int n = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(nums,new ArrayList<>(), result);
+        return result;
     }
 }
