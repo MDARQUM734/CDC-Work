@@ -18,6 +18,16 @@ class Solution {
        return dp;
     }
 }
+
+Question kth bit
+class CheckBit {
+    static boolean checkKthBit(int n, int k) {
+        // code here
+        if((n & (1<<k)) != 0) return true;
+        else return false;
+    }
+}
+
 Question 136
 class Solution {
     public int singleNumber(int[] nums) {
@@ -28,6 +38,20 @@ class Solution {
         }
         return result;
     }
+Question 137
+class Solution {
+    public int singleNumber(int[] nums) {
+        int n =nums.length;
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int num : nums){
+            map.put(num,map.getOrDefault(num,0)+1);
+        }
+        for(int num : map.keySet()){
+            if(map.get(num) == 1) return num;
+        }
+        return -1;
+    }
+}
     Question 78
     class Solution {
     public List<List<Integer>> subsets(int[] nums) {
@@ -60,4 +84,50 @@ class Solution {
         return xor;
     }
 }
+}
+Question Count Set bit
+class Solution {
+    public static int countSetBits(int n) {
+        // code here
+        int dp[] = new int[n+1];
+        for(int i=1; i<n+1; i++){
+            dp[i] = dp[i>>1] + (i & 1);
+        }
+        int sum = 0;
+        for(int i=0; i<=n; i++){
+            sum += dp[i];
+        }
+        return sum;
+    }
+}
+Question 287
+class Solution {
+    public int findDuplicate(int[] nums) {
+        int n = nums.length;
+        HashSet<Integer> set = new HashSet<>();
+        for(int num : nums){
+            if(!set.contains(num)){
+                set.add(num);
+            }else return num;
+        }
+        return -1;
+    }
+}
+Question 204
+class Solution {
+    public boolean isPrime(int n){
+        for(int i=2; i * i <=n ; i++){
+            if(n%i == 0) return false;
+        }
+        return true;
+    }
+    public int countPrimes(int n) {
+        int count = 0;
+        for(int i=2; i<n; i++){
+            if(isPrime(i)){
+                count++;
+            }
+        }
+        return count;
+    }
 }
