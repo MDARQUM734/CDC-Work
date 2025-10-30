@@ -1,0 +1,57 @@
+Question 78
+class Solution {
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(0, nums, new ArrayList<>(), result);
+        return result;
+    }
+    public void backtrack(int start, int nums[],List<Integer> current, List<List<Integer>> result){
+        result.add(new ArrayList<>(current));
+        for(int i=start ; i<nums.length; i++){
+            current.add(nums[i]);
+            backtrack(i+1,nums,current,result);
+            current.remove(current.size()-1);
+        }
+    }
+}
+Question 46
+class Solution {
+    public void backtrack(int nums[],List<Integer>path,List<List<Integer>> result){
+        if(path.size() == nums.length){
+            result.add(new ArrayList<>(path));
+            return;
+        }
+        for(int num : nums){
+            if(path.contains(num)) continue;
+            path.add(num);
+            backtrack(nums,path,result);
+            path.remove(path.size()-1);
+        }
+    }
+    public List<List<Integer>> permute(int[] nums) {
+        int n = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
+        backtrack(nums,new ArrayList<>(), result);
+        return result;
+    }
+}
+Question Subset2
+class Solution {
+    public void backtrack(int start, int arr[], ArrayList<Integer>current,ArrayList<ArrayList<Integer>> result){
+        result.add(new ArrayList<>(current));
+        for(int i = start; i<arr.length; i++){
+            if(i > start && arr[i-1] == arr[i]) continue;
+            current.add(arr[i]);
+            backtrack(i+1,arr,current,result);
+            current.remove(current.size()-1);
+        }
+    }
+    public ArrayList<ArrayList<Integer>> findSubsets(int[] arr) {
+        // code here
+        int n = arr.length;
+        Arrays.sort(arr);
+        ArrayList<ArrayList<Integer>> result = new ArrayList<>();
+        backtrack(0,arr,new ArrayList<>(),result);
+        return result;
+    }
+}
