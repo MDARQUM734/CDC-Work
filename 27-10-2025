@@ -1,0 +1,49 @@
+Question 70 (Climbing Stairs)
+class Solution {
+    public int helper(int n, int dp[]){
+        if(n ==1 || n==2) return n;
+        if(n == 0) return 1;
+        if(n<0) return 0;
+        if(dp[n] != -1){
+            return dp[n];
+        }
+        
+        dp[n] = helper(n-1,dp) + helper(n-2,dp);
+        return dp[n];
+    }
+    public int climbStairs(int n) {
+        int dp[] = new int[n+1];
+        Arrays.fill(dp,-1);
+        return helper(n,dp);
+    }
+}
+Question 746
+class Solution {
+    public int minCostClimbingStairs(int[] cost) {
+        int n = cost.length;
+        int[] dp = new int[n]; 
+        Arrays.fill(dp, -1);
+        return Math.min(helper(cost, dp, 0), helper(cost, dp, 1)); // ya toh first se start karo ya second ab jisme min ho
+    }
+
+    public int helper(int[] cost, int[] dp, int idx) {
+        if (idx >= cost.length) return 0;
+        if (dp[idx] != -1) return dp[idx];
+        int oneStep = helper(cost, dp, idx + 1);
+        int twoStep = helper(cost, dp, idx + 2);
+        dp[idx] = cost[idx] + Math.min(oneStep, twoStep);
+
+        return dp[idx];
+    }
+}
+Question 338
+class Solution {
+    public int[] countBits(int n) {
+       int dp[]=new int[n+1];
+       for(int i=1; i<n+1; i++){
+        // yaha dp[i>>i] ye isleye kar rahe kyoki hame just phle wale dp[i] ka pata hai jais agar i = 111 to hame dp[11] ka pata hai aur phir ham add kar rahe kyoki last bit agar one hai toh add karenge warna 0 aa jayega 
+        dp[i] = dp[i>>1]+(i & 1);
+       }
+       return dp;
+    }
+}
