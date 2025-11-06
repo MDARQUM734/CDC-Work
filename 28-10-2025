@@ -15,3 +15,79 @@ class Solution {
         return dp[n - 1];
     }
 }
+LC 213
+class Solution {
+    public int helper(int start, int end, int nums[]){
+        int len = end - start + 1;
+        int[] dp = new int[len];
+
+        dp[0] = nums[start];
+        if (len > 1) {
+            dp[1] = Math.max(nums[start], nums[start + 1]);
+        }
+
+        for (int i = 2; i < len; i++) {
+            dp[i] = Math.max(dp[i - 1], nums[start + i] + dp[i - 2]);
+        }
+
+        return dp[len - 1];
+    }
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n == 0) return 0;
+        if(n == 1) return nums[0];
+        if(n == 2) return Math.max(nums[0],nums[1]);
+        int ans1 = Math.max(helper(0,n-2,nums),helper(1,n-1,nums));
+        return ans1;
+    }
+}
+LC 62
+class Solution {
+    public int helper(int m, int n, int dp[][]){
+        if(m == 1 || n == 1) return 1;
+        if(dp[m][n] != -1){
+            return dp[m][n];
+        }
+        dp[m][n] = (helper(m-1,n,dp)+helper(m,n-1,dp));
+        return dp[m][n];
+
+    }
+    public int uniquePaths(int m, int n) {
+        int dp[][] = new int[m+1][n+1];
+        for(int i=0; i<=m; i++){
+            for(int j=0; j<=n; j++){
+                dp[i][j] = -1;
+            }
+        }
+        return helper(m,n,dp);
+    }
+}
+LC 63
+class Solution {
+    public int helper(int n,int m, int dp[][]){
+        if(n<0 || m<0) return 0;
+        if(dp[n][m] == Integer.MIN_VALUE) return 0;
+        if(n==0 && m==0) return 1;
+        if(dp[n][m] != -1) return dp[n][m];
+        dp[n][m] = helper(n-1,m,dp)+helper(n,m-1,dp);
+        return dp[n][m];
+    }
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int n = obstacleGrid.length;
+        int m = obstacleGrid[0].length;
+        int dp[][] = new int[n][m];
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                dp[i][j] = -1;
+            }
+        }
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(obstacleGrid[i][j] == 1){
+                    dp[i][j] = Integer.MIN_VALUE;
+                }
+            }
+        }
+        return helper(n-1,m-1,dp);
+    }
+}
